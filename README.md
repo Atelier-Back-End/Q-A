@@ -1,11 +1,11 @@
-#Overview
+# Overview
 
-Technologies Used
+## Technologies Used
 
-Database
+## Database
 
-Queries
+## Queries
 
-Deployment
+## Deployment
 
-Optimization
+## Optimization
