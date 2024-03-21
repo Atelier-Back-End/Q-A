@@ -1,68 +1,71 @@
-DROP DATABASE IF EXISTS QnA;
+--DROP DATABASE IF EXISTS qna;
 
-CREATE DATABASE QnA; --create databse QnA
+--CREATE DATABASE qna; --create databse qna
 
-\c QnA --connect to database QnA
+--\c qna; --connect to database qna
 
 
 -- create questions table
-CREATE TABLE questions (
+CREATE TABLE IF NOT EXISTS questions (
     id SERIAL PRIMARY KEY,
-    product_id VARCHAR(50),
-    body TEXT,
-    date_written TIMESTAMP,
-    asker_name VARCHAR(255),
-    asker_email VARCHAR(255),
-    reported boolean DEFAULT FALSE,
-    helpful INT
+    product_id VARCHAR(50) NOT NULL,
+    body TEXT NOT NULL,
+    date_written BIGINT NOT NULL,
+    asker_name VARCHAR(255) NOT NULL,
+    asker_email VARCHAR(255) NOT NULL,
+    reported BOOLEAN DEFAULT FALSE,
+    helpful INT DEFAULT 0
 );
 
 -- create answers table
-CREATE TABLE answers (
+CREATE TABLE IF NOT EXISTS answers (
     id SERIAL PRIMARY KEY,
-    question_id INT REFERENCES Question(id),
-    body TEXT,
-    date_written TIMESTAMP,
-    answerer_name VARCHAR(255),
-    answerer_email VARCHAR(255),
-    reported boolean DEFAULT FAlSE,
-    helpful INT
+    question_id INT REFERENCES questions(id),
+    body TEXT NOT NULL,
+    date_written BIGINT NOT NULL,
+    answerer_name VARCHAR(255) NOT NULL,
+    answerer_email VARCHAR(255) NOT NULL,
+    reported BOOLEAN DEFAULT FAlSE,
+    helpful INT DEFAULT 0
 
 );
 -- create answers_photos table
-CREATE TABLE answers_photos (
+CREATE TABLE IF NOT EXISTS answers_photos (
     id SERIAL PRIMARY KEY,
-    answer_id INT REFERENCES Answer(id),
-    url TEXT
+    answer_id INT REFERENCES answers(id),
+    url TEXT NOT NULL
 );
 
 -- copy data from csv files into the tables
-\copy answers_photos FROM '/Users/richardli/hackreactoractual/Q-A/db/cvs/answers_photos.csv' WITH (FORMAT CSV, HEADER);
+COPY questions FROM '/Users/richardli/hackreactoractual/Q-A/db/csv/questions.csv' DELIMITER ',' CSV HEADER;
 
-\copy answers FROM '/Users/richardli/hackreactoractual/Q-A/db/cvs/answers.csv' WITH (FORMAT CSV, HEADER);
+COPY answers FROM '/Users/richardli/hackreactoractual/Q-A/db/csv/answers.csv' DELIMITER',' CSV HEADER;
 
-\copy questions FROM '/Users/richardli/hackreactoractual/Q-A/db/cvs/questions.csv' WITH (FORMAT CSV, HEADER);
+COPY answers_photos FROM '/Users/richardli/hackreactoractual/Q-A/db/csv/answers_photos.csv' DELIMITER','CSV HEADER;
+
 
 -- set sequence values for the primary key columns
 
 -- for the questions table
-SELECT setval(pg_get_serial_sequence('questions', 'id'), COALESCE(max(id),0) + 1, false) FROM questions;
+SELECT setval('questions_id_seq', (SELECT MAX(id) FROM questions) + 1);
 
 -- for the answers table
-SELECT setval(pg_get_serial_sequence('answers', 'id'), COALESCE(max(id),0) + 1, false) FROM answers;
+SELECT setval('answers_id_seq', (SELECT MAX(id) FROM answers) + 1);
 
 -- for the answers_photo table
-SELECT setval(pg_get_serial_sequence('answers_photos', 'id'), COALESCE(max(id),0) + 1, false) FROM photos;
+SELECT setval('answers_photos_id_seq',(SELECT MAX(id) FROM answers_photos) + 1);
+
+ALTER TABLE questions ALTER COLUMN date_written TYPE TIMESTAMP USING to_timestamp(date_written/1000);
+
+ALTER TABLE answers ALTER COLUMN date_written TYPE TIMESTAMP USING to_timestamp(date_written/1000);
 
 -- Add indexes to optimize query performance
 
 -- For the questions table
-CREATE INDEX question_product_id_index ON questions (product_id);
-CREATE INDEX question_date_written_index ON questions (date_written DESC);
+CREATE INDEX IF NOT EXISTS question_product_id_index ON questions (product_id);
 
 -- For the answers table
-CREATE INDEX answer_question_id_index ON answers (question_id);
-CREATE INDEX answer_date_written_index ON answers (date_written DESC);
+CREATE INDEX IF NOT EXISTS answer_question_id_index ON answers (question_id);
 
 -- For the photos table
-CREATE INDEX photo_answer_id_index ON answers_photos (answer_id);
+CREATE INDEX IF NOT EXISTS photo_answer_id_index ON answers_photos (answer_id);

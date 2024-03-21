@@ -1,13 +1,13 @@
 const { Client } = require('pg');
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 dotenv.config();
 
-export const client = new Client({
-  user: process.env.USERNAME,
-  host: process.env.HOST,
-  database: process.env.DATABASE,
-  password: process.env.PASSWORD,
-  port: process.env.PORT
+const client = new Client({
+  user: process.env.PG_USERNAME,
+  host: process.env.PG_HOST,
+  database: 'qna',
+  password: process.env.PG_PASSWORD,
+  port: 5432
 });
 
 // Connect to the PostgreSQL database
@@ -16,16 +16,14 @@ client.connect()
   .then(() => console.log('Connected to PostgreSQL'))
   .catch(err => console.error('Error connecting to PostgreSQL:', err));*/
 
-async function connectToDatabase() {
-  try {
-    await client.connect();
-    console.log('Connected to PostgreSQL')
-  } catch (err) {
-    console.error('Error connecting to PostgreSQL:', err.message);
-    process.exit(1);
-  }
-}
-connectToDatabase();
+client.connect()
+  .then(() => {
+    console.log('Connected to PostgreSQL database');
+  })
+  .catch((err) => {
+    console.error('Error connecting to PostgreSQL database', err);
+  });
+//connectToDatabase();
 
-export {client};
+module.exports = {client};
 
