@@ -2,8 +2,8 @@ const express =require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
-const {client} = require('/Users/richardli/hackreactoractual/Q-A/db/pg.js');
-
+const {client} = require('/Users/richardli/hackreactoractual/Q-A/server/db/pg.js');
+const router = require('./routes.js');
 dotenv.config();
 
 const app = express();
@@ -12,9 +12,9 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
-
+app.use('/', router);
 
 
 app.listen(port, ()=> {
-  console.log(`Listening on https://localhost:${port}`)
+  console.log(`Listening on http://localhost:${port}`)
 })

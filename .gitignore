@@ -1,5 +1,4 @@
 .env
-db/csv
 .DS_Store
 .dotenv
 node_modules
