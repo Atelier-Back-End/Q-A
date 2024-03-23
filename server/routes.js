@@ -9,8 +9,8 @@ router.post('/questions', postQuestion);
 router.put('/questions/:questionID/helpful', helpfulQuestion);
 router.put('/questions/:questionID/report', reportQuestion);
 //answer endpoints
-router.get('/questions/:questionID/answers', getAnswers);
-router.post('/questions/:questionID/answers', postAnswer);
+router.get('/answers/:questionID', getAnswers);
+router.post('/answers/:questionID', postAnswer);
 router.put('/answers/:answerID/helpful', helpfulAnswer);
 router.put('/answers/:answerID/report', reportAnswer);
 

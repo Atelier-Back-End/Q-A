@@ -21,7 +21,7 @@ module.exports = {
                               )
                             ), '[]'::json) FROM answers_photos WHERE answer_id = answers.id)
                           )
-                        ) FROM answers WHERE question_id = ${questionID})
+                        ) FROM answers WHERE question_id = ${questionID} AND reported = false)
                       )`;
     const fetchAnswers = await client.query(queryStr);
     return fetchAnswers;
