@@ -2,3 +2,4 @@
 .DS_Store
 .dotenv
 node_modules
+dump.sql

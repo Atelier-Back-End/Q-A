@@ -2,7 +2,7 @@ const express =require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
-const {client} = require('/Users/richardli/hackreactoractual/Q-A/server/db/pg.js');
+const {client} = require('./db/pg.js');
 const router = require('./routes.js');
 dotenv.config();
 
