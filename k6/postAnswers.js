@@ -1,6 +1,6 @@
 import http from 'k6/http';
 import { sleep } from 'k6';
-const dotenv = require('dotenv');
+
 /*export const options = {
   // A number specifying the number of VUs to run concurrently.
   vus: 10,
@@ -66,7 +66,7 @@ export default function () {
   })
   const headers = { 'Content-Type': 'application/json' };
 
-  http.post(`http://${process.env.HOST}:${process.env.PORT}/answers/3518972`, payload, { headers });
+  http.post('http://3.145.199.162:3000/answers/3518972', payload, { headers });
 
 }
 // The function that defines VU logic.
