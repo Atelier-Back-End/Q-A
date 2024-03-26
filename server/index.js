@@ -8,7 +8,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT;
-
+const host = process.env.HOST;
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
@@ -16,5 +16,5 @@ app.use('/', router);
 
 
 app.listen(port, ()=> {
-  console.log(`Listening on http://localhost:${port}`)
+  console.log(`Listening on http://${host}:${port}`)
 })

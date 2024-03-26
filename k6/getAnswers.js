@@ -1,6 +1,6 @@
 import http from 'k6/http';
 import { sleep } from 'k6';
-
+const dotenv = require('dotenv');
 /*export const options = {
   // A number specifying the number of VUs to run concurrently.
   vus: 10,
@@ -58,7 +58,7 @@ export let options = {
 
 export default function () {
   // Make a request to your service's API
-  let response = http.get('http://localhost:3000/answers/1');
+  let response = http.get(`http://${process.env.HOST}:${process.env.PORT}/answers/1`);
 
   // Simulate realistic user behavior by adding a sleep
   sleep(1);
