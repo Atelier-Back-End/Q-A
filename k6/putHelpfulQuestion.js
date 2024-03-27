@@ -58,7 +58,7 @@ export let options = {
 
 export default function () {
   // Make a request to your service's API
-  let response = http.put('http://http://3.145.199.162:3000/questions/3518973/helpful');
+  let response = http.put('http://3.145.199.162:3000/questions/3518973/helpful');
 
   // Simulate realistic user behavior by adding a sleep
   sleep(1);
