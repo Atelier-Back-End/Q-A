@@ -14,6 +14,7 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use('/', router);
 
+app.get('/loaderio-670c1f606b75f5817ea9ac9c38f634c8', (req, res) => res.send('loaderio-670c1f606b75f5817ea9ac9c38f634c8'))
 
 app.listen(port, ()=> {
   console.log(`Listening on http://${host}:${port}`)
