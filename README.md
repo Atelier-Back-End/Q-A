@@ -68,7 +68,7 @@ Utilized PostgreSQL database to store relational data between Questions, Answers
 ```
 Nested queries trumped chaining individual ones and constructing objects for return to ensure data consistency and separate computing logic from our model functions, resulting in efficient queries.
 
-![code-sample](https://user-images.githubusercontent.com/18265165/192120539-9e55a22c-4630-4546-a438-a7328405a85a.png)
+![code-sample](https://github.com/SDC-Product-project/Q-A/blob/main/images/getQuestionsQuery.png)
 
 2. The query speeds for 1000 requests per second on 1 server is as follows:
 
