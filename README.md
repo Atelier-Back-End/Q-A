@@ -70,15 +70,15 @@ Nested queries trumped chaining individual ones and constructing objects for ret
 
 ![code-sample](https://github.com/SDC-Product-project/Q-A/blob/main/images/getQuestionsQuery.png)
 
-2. The query speeds for 1000 requests per second on 1 server is as follows:
+2. The loaderio tests for 100 requests per second on 1 EC2 micro-server:
 
-![Screen Shot 2022-09-24 at 2 58 50 PM](https://user-images.githubusercontent.com/18265165/192120593-5aeb7eb9-4d8e-4e43-9ce7-7b7624e7807d.png)
+![Screen Shot 2022-09-24 at 2 58 50 PM](https://github.com/SDC-Product-project/Q-A/blob/main/images/loaderio-getQuestions-DEPLOYED.png)
 
-  - The first optimization I implemented was to create another instance of the service API and create a load balancer. Then we routed all the traffic to the load balancer which eased the stress on the server and this allowed heavy traffic to be evenly distrubuted in a round-robin style. The result is about a 6ms improvement in average response time.
+  -One of the most impactful optimizations I introduced involved setting up an additional instance of the service API and implementing a load balancer using NGINX. By directing all traffic through this load balancer, we significantly alleviated the strain on 1 server to 3 servers, enabling heavy loads (up to 1000rps) to be evenly distributed in a round-robin fashion. The outcome? A 15ms enhancement in average response time, showcasing the tangible benefits of this strategic enhancement.
   
-  ![Screen Shot 2022-09-24 at 2 59 09 PM](https://user-images.githubusercontent.com/18265165/192120723-81afba1c-dd17-45e0-96b3-7c2f7cd602a8.png)
+  ![Screen Shot 2022-09-24 at 2 59 09 PM](https://github.com/Atelier-Back-End/Q-A/blob/main/images/loaderio-getQuestions-DEPLOYED.png)
   
-  - The second optimization I implemented was to add caching to the load balancer. We shaved off even more time on the average response with about a 13ms improvement from the first optimization.
-  
-  ![Screen Shot 2022-09-24 at 2 59 30 PM](https://user-images.githubusercontent.com/18265165/192120816-d1aa3680-b7f8-4d68-805f-7a735fc765f4.png)
+ -Expanding on our improvements, I added NGINX caching to the load balancer. This step trimmed an extra 2ms off our average response time, building on the gains from our initial optimization. It's a straightforward yet effective way to keep boosting performance.
+ 
+  ![Screen Shot 2022-09-24 at 2 59 30 PM](https://github.com/Atelier-Back-End/Q-A/blob/main/images/Loaderio-NGINX-CACHING-getQuestions.png)
 
