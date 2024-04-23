@@ -74,11 +74,11 @@ Nested queries trumped chaining individual ones and constructing objects for ret
 
 ![Screen Shot 2022-09-24 at 2 58 50 PM](https://github.com/SDC-Product-project/Q-A/blob/main/images/loaderio-getQuestions-DEPLOYED.png)
 
-  -One of the most impactful optimizations I introduced involved setting up an additional instance of the service API and implementing a load balancer using NGINX. By directing all traffic through this load balancer, we significantly alleviated the strain on 1 server to 3 servers, enabling heavy loads (up to 1000rps) to be evenly distributed in a round-robin fashion. The outcome? A 15ms enhancement in average response time, showcasing the tangible benefits of this strategic enhancement.
+  One of the most impactful optimizations I introduced involved setting up an additional instance of the service API and implementing a load balancer using NGINX. By directing all traffic through this load balancer, we significantly alleviated the strain on 1 server to 3 servers, enabling heavy loads (up to 1000rps) to be evenly distributed in a round-robin fashion. The outcome? A 15ms enhancement in average response time, showcasing the tangible benefits of this strategic enhancement.
   
   ![Screen Shot 2022-09-24 at 2 59 09 PM](https://github.com/Atelier-Back-End/Q-A/blob/main/images/loaderio-getQuestions-DEPLOYED.png)
   
- -Expanding on our improvements, I added NGINX caching to the load balancer. This step trimmed an extra 2ms off our average response time, building on the gains from our initial optimization. It's a straightforward yet effective way to keep boosting performance.
+  Expanding on our improvements, I added NGINX caching to the load balancer. This step trimmed an extra 2ms off our average response time, building on the gains from our initial optimization. It's a straightforward yet effective way to keep boosting performance.
  
   ![Screen Shot 2022-09-24 at 2 59 30 PM](https://github.com/Atelier-Back-End/Q-A/blob/main/images/Loaderio-NGINX-CACHING-getQuestions.png)
 
